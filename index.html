@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>云朵肌美容院</title>
+  <style>
+    :root {
+      --ink: #23272a;
+      --muted: #697077;
+      --line: #dde3e6;
+      --paper: #fbfaf7;
+      --surface: #ffffff;
+      --mint: #7bc6b5;
+      --mint-dark: #28786c;
+      --coral: #ee7768;
+      --gold: #e9b44c;
+      --sky: #dbeef2;
+      --shadow: 0 18px 45px rgba(31, 47, 51, 0.13);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(251, 250, 247, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(221, 227, 230, 0.8);
+    }
+
+    .nav {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 20px;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--mint);
+      color: #083f38;
+      font-size: 20px;
+      box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: #415057;
+      font-size: 15px;
+    }
+
+    .nav-links a {
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--coral);
+      color: var(--ink);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(35, 39, 42, 0.18);
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--line);
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 70px);
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(17, 31, 35, 0.78), rgba(17, 31, 35, 0.35) 52%, rgba(17, 31, 35, 0.08)),
+        url("https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1800&q=82") center/cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 140px;
+      background: linear-gradient(180deg, transparent, rgba(251, 250, 247, 0.95));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 72px 0 120px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 56px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 32px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      color: #f7fffd;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 18px 0 18px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 610px;
+      margin-bottom: 28px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions .btn:first-child {
+      background: var(--coral);
+    }
+
+    .hero-actions .btn.secondary {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: transparent;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 140px));
+      gap: 14px;
+    }
+
+    .stat {
+      border-left: 3px solid var(--mint);
+      padding-left: 12px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 13px;
+    }
+
+    .booking {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--ink);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .booking h2 {
+      margin-bottom: 6px;
+      font-size: 22px;
+    }
+
+    .booking p {
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .booking label {
+      display: block;
+      margin: 14px 0 6px;
+      color: #435058;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .booking .btn {
+      width: 100%;
+      margin-top: 16px;
+      background: var(--mint-dark);
+    }
+
+    section {
+      padding: 76px 0;
+    }
+
+    .wrap {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .section-head h2 {
+      margin-bottom: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.15;
+    }
+
+    .section-head p {
+      max-width: 440px;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .services {
+      background: var(--paper);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .service-card {
+      min-height: 250px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 8px 22px rgba(31, 47, 51, 0.06);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      background: var(--sky);
+      color: #1f6572;
+      font-size: 24px;
+    }
+
+    .service-card:nth-child(2) .service-icon {
+      background: #fde0dc;
+      color: #a64337;
+    }
+
+    .service-card:nth-child(3) .service-icon {
+      background: #faefcc;
+      color: #8a6320;
+    }
+
+    .service-card:nth-child(4) .service-icon {
+      background: #dff0e9;
+      color: #2f725c;
+    }
+
+    .service-card h3 {
+      margin: 18px 0 8px;
+      font-size: 20px;
+    }
+
+    .service-card p {
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .price {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      color: var(--mint-dark);
+      font-weight: 800;
+    }
+
+    .price strong {
+      font-size: 28px;
+    }
+
+    .about {
+      background: #fff;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .photo-stack {
+      display: grid;
+      grid-template-columns: 1fr 0.78fr;
+      gap: 14px;
+      align-items: end;
+    }
+
+    .photo-main,
+    .photo-small {
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: var(--line);
+    }
+
+    .photo-main {
+      height: 500px;
+    }
+
+    .photo-small {
+      height: 330px;
+      transform: translateY(34px);
+      border: 8px solid #fff;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .feature {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .feature:last-child {
+      border-bottom: 0;
+    }
+
+    .feature b {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      background: var(--mint);
+      color: #073e38;
+      font-size: 20px;
+    }
+
+    .feature h3 {
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    .feature p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .gallery {
+      background: var(--sky);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      grid-template-rows: 220px 220px;
+      gap: 14px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #c8d8dc;
+    }
+
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+
+    .gallery-item::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      min-height: 34px;
+      padding: 6px 10px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .reviews {
+      background: #fff;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .review-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 24px;
+      box-shadow: 0 8px 22px rgba(31, 47, 51, 0.05);
+    }
+
+    .stars {
+      color: var(--gold);
+      letter-spacing: 0;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+    .review-card p {
+      color: #4c585e;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      font-weight: 800;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--mint);
+      display: grid;
+      place-items: center;
+      color: #073e38;
+    }
+
+    .contact {
+      background: #253238;
+      color: #fff;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 44px;
+      align-items: start;
+    }
+
+    .contact h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .contact p {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .info-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .info-item {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 12px;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .info-item b {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      background: rgba(123, 198, 181, 0.22);
+      color: #c8fff2;
+    }
+
+    .contact-form {
+      background: #fff;
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .contact-form label {
+      display: block;
+      margin: 0 0 6px;
+      color: #435058;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .contact-form .field {
+      margin-bottom: 14px;
+    }
+
+    .contact-form .btn {
+      width: 100%;
+      background: var(--coral);
+    }
+
+    footer {
+      background: #1d262b;
+      color: rgba(255, 255, 255, 0.72);
+      padding: 24px 0;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 50;
+      width: min(440px, calc(100% - 32px));
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      background: #1f2d32;
+      color: #fff;
+      box-shadow: var(--shadow);
+      transform: translate(-50%, 120px);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-inner,
+      .about-layout,
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        align-items: start;
+        gap: 28px;
+        padding-top: 56px;
+      }
+
+      .booking {
+        max-width: 520px;
+      }
+
+      .service-grid,
+      .review-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 2;
+        grid-row: auto;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav {
+        min-height: 64px;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .nav .btn {
+        min-height: 40px;
+        padding: 0 12px;
+        font-size: 14px;
+      }
+
+      .hero {
+        min-height: auto;
+        background-position: 62% center;
+      }
+
+      .hero-inner {
+        padding: 46px 0 82px;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+
+      .hero-copy {
+        font-size: 16px;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 10px;
+      }
+
+      .service-grid,
+      .review-grid,
+      .gallery-grid,
+      .contact-form .row {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item,
+      .gallery-item:first-child {
+        grid-column: auto;
+        height: 240px;
+      }
+
+      .photo-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-main,
+      .photo-small {
+        height: 320px;
+      }
+
+      .photo-small {
+        transform: none;
+        border: 0;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="#top" aria-label="云朵肌美容院首页">
+        <span class="brand-mark" aria-hidden="true">颜</span>
+        <span>云朵肌美容院</span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">服务价目</a>
+        <a href="#about">安心标准</a>
+        <a href="#gallery">空间实拍</a>
+        <a href="#contact">联系我们</a>
+      </div>
+      <a class="btn" href="#booking">立即预约</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="云朵肌美容院">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">城市美容院 · 面部管理 · 身体 SPA · 美甲美睫</span>
+          <h1>云朵肌美容院</h1>
+          <p class="hero-copy">把护肤、放松和变美安排进舒服的日常。专业肤质评估、温和护理流程、安静私密空间，让每一次到店都像给自己按下暂停键。</p>
+          <div class="hero-actions">
+            <a class="btn" href="#booking">预约今日护理</a>
+            <a class="btn secondary" href="#services">查看服务</a>
+          </div>
+          <div class="hero-stats" aria-label="美容院数据">
+            <div class="stat">
+              <strong>4.9</strong>
+              <span>到店评分</span>
+            </div>
+            <div class="stat">
+              <strong>3200+</strong>
+              <span>年度护理人次</span>
+            </div>
+            <div class="stat">
+              <strong>30min</strong>
+              <span>基础护理起</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="booking" id="booking">
+          <h2>快速预约</h2>
+          <p>提交后顾问会在营业时间内电话确认档期。</p>
+          <label for="need">护理需求</label>
+          <select id="need" name="need">
+            <option>面部补水</option>
+            <option>清洁焕肤</option>
+            <option>身体放松</option>
+            <option>美甲美睫</option>
+          </select>
+
+          <label for="service">预约项目</label>
+          <select id="service" name="service">
+            <option>基础面部护理</option>
+            <option>小气泡清洁</option>
+            <option>肩颈舒缓 SPA</option>
+            <option>日式美甲</option>
+          </select>
+
+          <label for="time">期望时间</label>
+          <input id="time" name="time" type="datetime-local" />
+
+          <label for="phone">联系电话</label>
+          <input id="phone" name="phone" type="tel" placeholder="请输入手机号" />
+
+          <button class="btn" type="submit">提交预约</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>常用美容项目</h2>
+          <p>价格会根据肤况、护理方案、产品选择和服务时长略有调整，到店前会先沟通确认。</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">净</div>
+              <h3>基础面护</h3>
+              <p>卸妆清洁、补水导入、舒缓面膜、基础肩颈放松。</p>
+            </div>
+            <div class="price"><span>￥</span><strong>68</strong><span>起</span></div>
+          </article>
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">亮</div>
+              <h3>小气泡清洁</h3>
+              <p>针对黑头、闭口和油脂堆积，做深层清洁与镇定修护。</p>
+            </div>
+            <div class="price"><span>￥</span><strong>158</strong><span>起</span></div>
+          </article>
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">舒</div>
+              <h3>肩颈 SPA</h3>
+              <p>热敷、精油舒缓和轻柔按摩，适合久坐疲惫和睡眠压力。</p>
+            </div>
+            <div class="price"><span>￥</span><strong>128</strong><span>起</span></div>
+          </article>
+          <article class="service-card">
+            <div>
+              <div class="service-icon" aria-hidden="true">妆</div>
+              <h3>美甲美睫</h3>
+              <p>日常通勤、约会款和轻奢款式，可按肤色和风格定制。</p>
+            </div>
+            <div class="price"><span>￥</span><strong>20</strong><span>起</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="wrap about-layout">
+        <div class="photo-stack" aria-label="美容院护理环境">
+          <div class="photo-main">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=82" alt="干净明亮的美容院护理环境" />
+          </div>
+          <div class="photo-small">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=700&q=82" alt="安静放松的面部护理过程" />
+          </div>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2>护理过程清楚，效果不靠猜</h2>
+          </div>
+          <p>每位顾客到店都会先做基础肤况沟通，美容师根据皮肤状态、生活习惯和当日敏感程度调整护理步骤。第一次体验、屏障不稳定、想改善暗沉或疲惫感，我们都会留出更细致的评估时间。</p>
+          <div class="feature-list">
+            <div class="feature">
+              <b aria-hidden="true">净</b>
+              <div>
+                <h3>器具消毒流程</h3>
+                <p>毛巾、面扑、仪器探头和美甲工具分区管理，护理前后记录清洁。</p>
+              </div>
+            </div>
+            <div class="feature">
+              <b aria-hidden="true">柔</b>
+              <div>
+                <h3>温和分层护理</h3>
+                <p>先判断清洁、补水、修护优先级，再按肤况调整产品和仪器强度。</p>
+              </div>
+            </div>
+            <div class="feature">
+              <b aria-hidden="true">检</b>
+              <div>
+                <h3>护理后建议</h3>
+                <p>针对干燥、出油、泛红和妆前状态，给出简单可执行的居家护理建议。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>空间日常</h2>
+          <p>从肤况沟通到护理完成，每一步都尽量温和、透明、可追踪。</p>
+        </div>
+        <div class="gallery-grid">
+          <figure class="gallery-item" data-label="面部护理">
+            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1000&q=82" alt="美容院面部护理过程" />
+          </figure>
+          <figure class="gallery-item" data-label="仪器护理">
+            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=700&q=82" alt="美容仪器护理细节" />
+          </figure>
+          <figure class="gallery-item" data-label="美甲定制">
+            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=700&q=82" alt="精致美甲护理" />
+          </figure>
+          <figure class="gallery-item" data-label="美容造型">
+            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=700&q=82" alt="美容院发型造型服务" />
+          </figure>
+          <figure class="gallery-item" data-label="洁净空间">
+            <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=700&q=82" alt="干净明亮的美容空间" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>顾客们这样说</h2>
+          <p>我们更在意长期信任：每一次护理，都应该让人更松弛，也更了解自己的状态。</p>
+        </div>
+        <div class="review-grid">
+          <article class="review-card">
+            <div class="stars" aria-label="五星评价">★★★★★</div>
+            <p>第一次做面护前讲得很清楚，没有一上来就推项目。做完脸很润，第二天上妆也服帖。</p>
+            <div class="reviewer"><span class="avatar">林</span>林女士 · 面部护理</div>
+          </article>
+          <article class="review-card">
+            <div class="stars" aria-label="五星评价">★★★★★</div>
+            <p>肩颈 SPA 很舒服，力度会一直确认，做完肩膀轻了很多，环境也安静。</p>
+            <div class="reviewer"><span class="avatar">周</span>周女士 · 肩颈 SPA</div>
+          </article>
+          <article class="review-card">
+            <div class="stars" aria-label="五星评价">★★★★★</div>
+            <p>美甲师会根据我的通勤穿搭调颜色，款式精致但不夸张，保持度也不错。</p>
+            <div class="reviewer"><span class="avatar">陈</span>陈女士 · 日式美甲</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap contact-layout">
+        <div>
+          <h2>预约前想先聊聊？</h2>
+          <p>告诉我们你的肤况、作息、近期护肤习惯和想改善的问题，我们会帮你判断适合的项目和预计时长。</p>
+          <div class="info-list">
+            <div class="info-item">
+              <b aria-hidden="true">电</b>
+              <span>电话：021-8888 5678</span>
+            </div>
+            <div class="info-item">
+              <b aria-hidden="true">时</b>
+              <span>营业：周一至周日 10:00 - 20:00</span>
+            </div>
+            <div class="info-item">
+              <b aria-hidden="true">址</b>
+              <span>地址：幸福路 88 号生活美学街区 2F</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form">
+          <div class="row">
+            <div class="field">
+              <label for="name">称呼</label>
+              <input id="name" name="name" type="text" placeholder="你的称呼" />
+            </div>
+            <div class="field">
+              <label for="contact-phone">手机号</label>
+              <input id="contact-phone" name="contact-phone" type="tel" placeholder="方便联系的电话" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="skin">肤质状态</label>
+              <input id="skin" name="skin" type="text" placeholder="例如：偏干、泛红、出油" />
+            </div>
+            <div class="field">
+              <label for="preferred-service">想预约项目</label>
+              <input id="preferred-service" name="preferred-service" type="text" placeholder="例如：补水面护" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">护理需求</label>
+            <textarea id="message" name="message" placeholder="例如：换季泛红、妆前急救、肩颈紧张、想做通勤美甲"></textarea>
+          </div>
+          <button class="btn" type="submit">发送咨询</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© 2026 云朵肌美容院</span>
+      <span>温柔护理 · 透明方案 · 城市松弛</span>
+    </div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const toast = document.querySelector(".toast");
+    const showToast = (message) => {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2800);
+    };
+
+    document.querySelectorAll("form").forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        showToast("已收到信息，顾问会尽快联系你确认。");
+        form.reset();
+      });
+    });
+  </script>
+</body>
+</html>
