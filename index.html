@@ -510,18 +510,19 @@
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr 0.8fr;
-      grid-template-rows: 220px 220px;
-      gap: 14px;
+      grid-template-columns: 1.18fr 0.82fr 0.82fr;
+      grid-template-rows: 230px 230px;
+      gap: 16px;
     }
 
     .gallery-item {
       position: relative;
-      overflow: hidden;
       margin: 0;
+      overflow: hidden;
       border-radius: var(--radius);
       background: #c8d8dc;
       box-shadow: 0 16px 36px rgba(31, 47, 51, 0.1);
+      isolation: isolate;
     }
 
     .gallery-item:first-child {
@@ -530,6 +531,21 @@
 
     .gallery-item img {
       transform: scale(1.01);
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.035);
+      filter: saturate(1.04);
+    }
+
+    .gallery-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, transparent 48%, rgba(20, 32, 35, 0.42));
+      pointer-events: none;
     }
 
     .gallery-item:nth-child(1) img {
@@ -555,6 +571,7 @@
     .gallery-item::after {
       content: attr(data-label);
       position: absolute;
+      z-index: 2;
       left: 14px;
       bottom: 14px;
       min-height: 34px;
@@ -567,6 +584,26 @@
       color: var(--ink);
       font-size: 14px;
       font-weight: 700;
+    }
+
+    .gallery-item:nth-child(1) img {
+      object-position: center 50%;
+    }
+
+    .gallery-item:nth-child(2) img {
+      object-position: center 46%;
+    }
+
+    .gallery-item:nth-child(3) img {
+      object-position: center 50%;
+    }
+
+    .gallery-item:nth-child(4) img {
+      object-position: center 50%;
+    }
+
+    .gallery-item:nth-child(5) img {
+      object-position: center 54%;
     }
 
     .reviews {
@@ -1007,7 +1044,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2>空间日常</h2>
-          <p>从肤况沟通到护理完成，每一步都尽量温和、透明、可追踪。</p>
+          <p>把接待、护理、消毒和放松时刻放在同一组画面里，更接近日常到店体验。</p>
         </div>
         <div class="gallery-grid">
           <figure class="gallery-item" data-label="面部护理">
