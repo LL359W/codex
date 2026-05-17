@@ -469,30 +469,52 @@
     }
 
     .gallery {
-      background: var(--sky);
+      background: #edf7f4;
     }
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr 0.8fr;
-      grid-template-rows: 220px 220px;
-      gap: 14px;
+      grid-template-columns: 1.18fr 0.82fr 0.82fr;
+      grid-template-rows: 230px 230px;
+      gap: 16px;
     }
 
     .gallery-item {
       position: relative;
+      margin: 0;
       overflow: hidden;
       border-radius: var(--radius);
       background: #c8d8dc;
+      box-shadow: 0 14px 34px rgba(31, 47, 51, 0.11);
+      isolation: isolate;
     }
 
     .gallery-item:first-child {
       grid-row: span 2;
     }
 
+    .gallery-item img {
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.035);
+      filter: saturate(1.04);
+    }
+
+    .gallery-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, transparent 48%, rgba(20, 32, 35, 0.42));
+      pointer-events: none;
+    }
+
     .gallery-item::after {
       content: attr(data-label);
       position: absolute;
+      z-index: 2;
       left: 14px;
       bottom: 14px;
       min-height: 34px;
@@ -504,6 +526,26 @@
       color: var(--ink);
       font-size: 14px;
       font-weight: 700;
+    }
+
+    .gallery-item:nth-child(1) img {
+      object-position: center 50%;
+    }
+
+    .gallery-item:nth-child(2) img {
+      object-position: center 46%;
+    }
+
+    .gallery-item:nth-child(3) img {
+      object-position: center 50%;
+    }
+
+    .gallery-item:nth-child(4) img {
+      object-position: center 50%;
+    }
+
+    .gallery-item:nth-child(5) img {
+      object-position: center 54%;
     }
 
     .reviews {
@@ -944,23 +986,23 @@
       <div class="wrap">
         <div class="section-head">
           <h2>空间日常</h2>
-          <p>从肤况沟通到护理完成，每一步都尽量温和、透明、可追踪。</p>
+          <p>把接待、护理、消毒和放松时刻放在同一组画面里，更接近日常到店体验。</p>
         </div>
         <div class="gallery-grid">
-          <figure class="gallery-item" data-label="面部护理">
-            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1000&q=82" alt="美容院面部护理过程" />
+          <figure class="gallery-item" data-label="安静护理区">
+            <img src="https://images.unsplash.com/photo-1737352777897-e22953991a32?auto=format&fit=crop&w=1100&q=86" alt="安静舒适的美容院护理房间" />
           </figure>
-          <figure class="gallery-item" data-label="仪器护理">
-            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=700&q=82" alt="美容仪器护理细节" />
+          <figure class="gallery-item" data-label="面护日常">
+            <img src="https://images.unsplash.com/photo-1757689373248-a6cd07328ba5?auto=format&fit=crop&w=760&q=86" alt="美容师进行面部护理的日常场景" />
           </figure>
-          <figure class="gallery-item" data-label="美甲定制">
-            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=700&q=82" alt="精致美甲护理" />
+          <figure class="gallery-item" data-label="产品陈列">
+            <img src="https://images.unsplash.com/photo-1770925758916-44e22e159542?auto=format&fit=crop&w=760&q=86" alt="美容院整齐陈列的护理产品" />
           </figure>
-          <figure class="gallery-item" data-label="美容造型">
-            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=700&q=82" alt="美容院发型造型服务" />
+          <figure class="gallery-item" data-label="护理备品">
+            <img src="https://images.unsplash.com/photo-1760862652442-e8ff7ebdd2f8?auto=format&fit=crop&w=760&q=86" alt="美容空间中整齐摆放的护理备品" />
           </figure>
-          <figure class="gallery-item" data-label="洁净空间">
-            <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=700&q=82" alt="干净明亮的美容空间" />
+          <figure class="gallery-item" data-label="整理角落">
+            <img src="https://images.unsplash.com/photo-1754887966139-1bf04efbba78?auto=format&fit=crop&w=760&q=86" alt="美容院整理干净的日常工作角落" />
           </figure>
         </div>
       </div>
