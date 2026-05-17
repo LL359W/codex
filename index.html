@@ -15,6 +15,7 @@
       --mint-dark: #28786c;
       --coral: #ee7768;
       --gold: #e9b44c;
+      
       --sky: #dbeef2;
       --shadow: 0 18px 45px rgba(31, 47, 51, 0.13);
       --radius: 8px;
@@ -1155,7 +1156,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const supabaseUrl = "https://rjsrkvbhlshlfvfuhixg.supabase.co/rest/v1/";
+    const supabaseUrl = "https://rjsrkvbhlshlfvfuhixg.supabase.co";
     const supabaseKey = "sb_publishable_QqD_d_9JbCbTBZMuHvUHcQ_6ctja4H_";
     const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
@@ -1179,6 +1180,15 @@
       const service = document.querySelector("#service").value;
       const time = document.querySelector("#time").value;
 
+      if (!phone || !service || !time) {
+        alert("请先填写完整的联系电话、预约项目和期望时间。");
+        return;
+      }
+
+      const submitButton = bookingForm.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+      submitButton.textContent = "提交中...";
+
       const { error } = await supabaseClient
         .from("appointments")
         .insert([
@@ -1189,8 +1199,12 @@
           }
         ]);
 
+      submitButton.disabled = false;
+      submitButton.textContent = "提交预约";
+
       if (error) {
         console.error("预约提交失败：", error);
+        alert(`预约失败：${error.message}`);
         return;
       }
 
@@ -1199,9 +1213,9 @@
     });
 
     contactForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        showToast("已收到信息，顾问会尽快联系你确认。");
-        contactForm.reset();
+      event.preventDefault();
+      showToast("已收到信息，顾问会尽快联系你确认。");
+      contactForm.reset();
     });
   </script>
 </body>
