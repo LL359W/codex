@@ -1100,7 +1100,7 @@
           <div class="info-list">
             <div class="info-item">
               <b aria-hidden="true">电</b>
-              <span>电话：021-8888 5678</span>
+              <span>电话：19834128255</span>
             </div>
             <div class="info-item">
               <b aria-hidden="true">时</b>
@@ -1153,8 +1153,16 @@
 
   <div class="toast" role="status" aria-live="polite"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    const supabaseUrl = "https://rjsrkvbhlshlfvfuhixg.supabase.co/rest/v1/";
+    const supabaseKey = "sb_publishable_QqD_d_9JbCbTBZMuHvUHcQ_6ctja4H_";
+    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
     const toast = document.querySelector(".toast");
+    const bookingForm = document.querySelector("#booking");
+    const contactForm = document.querySelector(".contact-form");
+
     const showToast = (message) => {
       toast.textContent = message;
       toast.classList.add("show");
@@ -1164,12 +1172,36 @@
       }, 2800);
     };
 
-    document.querySelectorAll("form").forEach((form) => {
-      form.addEventListener("submit", (event) => {
+    bookingForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const phone = document.querySelector("#phone").value.trim();
+      const service = document.querySelector("#service").value;
+      const time = document.querySelector("#time").value;
+
+      const { error } = await supabaseClient
+        .from("appointments")
+        .insert([
+          {
+            phone,
+            service_type: service,
+            book_date: time
+          }
+        ]);
+
+      if (error) {
+        console.error("预约提交失败：", error);
+        return;
+      }
+
+      alert("预约成功！");
+      bookingForm.reset();
+    });
+
+    contactForm.addEventListener("submit", (event) => {
         event.preventDefault();
         showToast("已收到信息，顾问会尽快联系你确认。");
-        form.reset();
-      });
+        contactForm.reset();
     });
   </script>
 </body>
